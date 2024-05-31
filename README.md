@@ -38,6 +38,13 @@ O projeto é estruturado da seguinte forma:
 2. Abra o projeto em sua IDE.
 3. Compile o projeto usando o comando `mvn clean install`.
 4. Execute a aplicação usando o comando `mvn spring-boot:run`.
+5. A aplicação irá rodar no endereço `http://127.0.0.1:8080/api/v1/destination `
+
+## Documentação da API com Swagger
+
+A API é documentada com o Swagger, o que facilita o seu uso e exploração. A documentação interativa pode ser acessada no seguinte caminho:
+
+`http://127.0.0.1:8080/swagger-ui.html`
 
 ## Endpoints da API
 
