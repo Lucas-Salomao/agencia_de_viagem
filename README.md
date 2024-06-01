@@ -25,6 +25,8 @@ O projeto é estruturado da seguinte forma:
 * **`DestinationDescription`:** Classe que representa a descrição de um destino, com um atributo para a descrição textual.
 * **`controller`:**
 * **`DestinationController`:** Classe que controla as requisições HTTP para a API, expondo os endpoints RESTful para gerenciar destinos.
+* **`service`:**
+* **`DestinationService`:** Classe que atua como uma camada intermediária entre o controlador (DestinationController) e o modelo de dados (Destination). Ela encapsula a lógica de negócios relacionada aos destinos turísticos
 
 ## Pré-requisitos
 
