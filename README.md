@@ -44,7 +44,7 @@ O projeto é estruturado da seguinte forma:
 
 A API é documentada com o Swagger, o que facilita o seu uso e exploração. A documentação interativa pode ser acessada no seguinte caminho:
 
-`http://127.0.0.1:8080/swagger-ui.html`
+http://127.0.0.1:8080/swagger-ui.html
 
 ## Endpoints da API
 
