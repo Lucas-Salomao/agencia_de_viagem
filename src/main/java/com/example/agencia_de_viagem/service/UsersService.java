@@ -4,6 +4,7 @@ import com.example.agencia_de_viagem.domain.dto.UsersDTO;
 import com.example.agencia_de_viagem.domain.entity.UserEntity;
 import com.example.agencia_de_viagem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public class UsersService {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDTO.getId());
         userEntity.setUserName(userDTO.getUserName());
-        userEntity.setPassword(userDTO.getPassword()); // Senha não criptografada
+        userEntity.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword())); // Senha não criptografada
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setEmail(userDTO.getEmail());
