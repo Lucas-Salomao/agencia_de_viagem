@@ -48,6 +48,12 @@ A API é documentada com o Swagger, o que facilita o seu uso e exploração. A d
 
 http://127.0.0.1:8080/swagger-ui.html
 
+## Documentação da API com Postman
+
+A API também foi documentada no Postman.
+
+https://www.postman.com/martian-rocket-149683/workspace/desenvolvimento-de-sistemas-web
+
 ## Endpoints da API
 
 A API expõe os seguintes endpoints:
