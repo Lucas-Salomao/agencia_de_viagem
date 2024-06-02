@@ -1,6 +1,6 @@
 package com.example.agencia_de_viagem.dao;
 
-import com.example.agencia_de_viagem.domain.entity.UsersEntity;
+import com.example.agencia_de_viagem.domain.entity.UserEntity;
 import org.springframework.stereotype.Component;
 import jakarta.persistence.*;
 
@@ -18,26 +18,26 @@ public class UsersDAO {
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-    public UsersEntity createUser(UsersEntity userEntity) {
+    public UserEntity createUser(UserEntity userEntity) {
         entityManager.getTransaction().begin();
         entityManager.persist(userEntity);
         entityManager.getTransaction().commit();
         return userEntity;
     }
 
-    public List<UsersEntity> getAllUsers() {
-        return entityManager.createQuery("SELECT u from UsersEntity u", UsersEntity.class).getResultList();
+    public List<UserEntity> getAllUsers() {
+        return entityManager.createQuery("SELECT u from UserEntity u", UserEntity.class).getResultList();
     }
 
-    public UsersEntity getUserById(Long id) {
-        return entityManager.find(UsersEntity.class, id);
+    public UserEntity getUserById(Long id) {
+        return entityManager.find(UserEntity.class, id);
     }
 
-    public UsersEntity getUserByUserName(String userName) {
-        return entityManager.find(UsersEntity.class, userName); // userName should be unique
+    public UserEntity getUserByUserName(String userName) {
+        return entityManager.find(UserEntity.class, userName); // userName should be unique
     }
 
-    public UsersEntity updateUser(UsersEntity userEntity) {
+    public UserEntity updateUser(UserEntity userEntity) {
         entityManager.getTransaction().begin();
         entityManager.merge(userEntity);
         entityManager.getTransaction().commit();
@@ -46,7 +46,7 @@ public class UsersDAO {
 
     public void deleteUser(Long id) {
         entityManager.getTransaction().begin();
-        UsersEntity userEntity = entityManager.find(UsersEntity.class, id);
+        UserEntity userEntity = entityManager.find(UserEntity.class, id);
         if (userEntity != null) {
             entityManager.remove(userEntity);
         }
