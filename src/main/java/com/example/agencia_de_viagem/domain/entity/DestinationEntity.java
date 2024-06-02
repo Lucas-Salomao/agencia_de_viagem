@@ -3,7 +3,7 @@ package com.example.agencia_de_viagem.domain.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "destinations", schema = "destination_details")
+@Table(name = "destinations", schema = "public")
 public class DestinationEntity {
 
     @Id
