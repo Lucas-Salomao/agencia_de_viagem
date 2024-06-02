@@ -3,6 +3,7 @@ package com.example.agencia_de_viagem.domain.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class UsersEntity {
 
     @Id
