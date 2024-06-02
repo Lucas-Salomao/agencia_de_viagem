@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,11 +54,8 @@ public class UsersService {
     }
 
     public UsersDTO getUserByUserName(String userName) {
-        UserEntity userEntity = userRepository.findByUserName(userName);
-        if (userEntity != null) {
-            return convertToDTO(userEntity);
-        }
-        return null;
+        Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
+        return userEntity.map(this::convertToDTO).orElse(null);
     }
 
     private UserEntity convertToEntity(UsersDTO userDTO) {
@@ -68,6 +66,7 @@ public class UsersService {
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setEmail(userDTO.getEmail());
+        userEntity.setRole(userDTO.getRole());
         return userEntity;
     }
 
@@ -79,6 +78,7 @@ public class UsersService {
         userDTO.setFirstName(userEntity.getFirstName());
         userDTO.setLastName(userEntity.getLastName());
         userDTO.setEmail(userEntity.getEmail());
+        userDTO.setRole(userEntity.getRole());
         return userDTO;
     }
 }
