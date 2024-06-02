@@ -1,4 +1,4 @@
-CREATE TABLE users_details.users (
+CREATE TABLE users (
                                     id BIGSERIAL PRIMARY KEY,
                                     firstname VARCHAR(255) NOT NULL,
                                     lastname VARCHAR(255) NOT NULL,

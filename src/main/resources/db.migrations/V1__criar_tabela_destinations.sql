@@ -1,4 +1,4 @@
-CREATE TABLE destination_details.destinations (
+CREATE TABLE destinations (
                               id BIGSERIAL PRIMARY KEY,
                               name VARCHAR(255) NOT NULL,
                               location VARCHAR(255) NOT NULL,
