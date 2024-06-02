@@ -3,6 +3,7 @@ package com.example.agencia_de_viagem.service;
 import com.example.agencia_de_viagem.dao.DestinationDAO;
 import com.example.agencia_de_viagem.domain.dto.DestinationDTO;
 import com.example.agencia_de_viagem.domain.entity.DestinationEntity;
+import com.example.agencia_de_viagem.repository.DestinationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public class DestinationService {
 
     @Autowired
-    private DestinationDAO destinationDAO;
+    private DestinationRepository destinationRepository;
 
     /**
      * Converte um DestinationDTO para um DestinationEntity.
@@ -23,7 +24,7 @@ public class DestinationService {
      * @param destinationDTO O DTO a ser convertido.
      * @return A entidade correspondente.
      */
-    private DestinationEntity toEntity(DestinationDTO destinationDTO) {
+    private DestinationEntity convertToEntity(DestinationDTO destinationDTO) {
         DestinationEntity destinationEntity = new DestinationEntity();
         destinationEntity.setName(destinationDTO.getName());
         destinationEntity.setLocation(destinationDTO.getLocation());
@@ -38,7 +39,7 @@ public class DestinationService {
      * @param destinationEntity A entidade a ser convertida.
      * @return O DTO correspondente.
      */
-    private DestinationDTO toDTO(DestinationEntity destinationEntity) {
+    private DestinationDTO convertToDTO(DestinationEntity destinationEntity) {
         DestinationDTO destinationDTO = new DestinationDTO();
         destinationDTO.setId(destinationEntity.getId());
         destinationDTO.setName(destinationEntity.getName());
@@ -55,9 +56,9 @@ public class DestinationService {
      * @return O destino criado.
      */
     public DestinationDTO createDestionation(DestinationDTO destination) {
-        DestinationEntity destinationEntity = toEntity(destination); // Converte DTO para Entity
-        destinationEntity = destinationDAO.createDestination(destinationEntity);
-        return toDTO(destinationEntity); // Converte Entity para DTO
+        DestinationEntity destinationEntity = convertToEntity(destination); // Converte DTO para Entity
+        destinationEntity = destinationRepository.save(destinationEntity);
+        return convertToDTO(destinationEntity); // Converte Entity para DTO
     }
 
     /**
@@ -66,9 +67,9 @@ public class DestinationService {
      * @return Uma lista com todos os destinos.
      */
     public List<DestinationDTO> getAllDestinations() {
-        List<DestinationEntity> destinationEntities = destinationDAO.getAllDestinations();
+        List<DestinationEntity> destinationEntities = destinationRepository.findAll();
         return destinationEntities.stream()
-                .map(this::toDTO) // Utiliza a função toDTO para converter a lista de entidades para DTOs
+                .map(this::convertToDTO) // Utiliza a função toDTO para converter a lista de entidades para DTOs
                 .collect(Collectors.toList());
     }
 
@@ -79,11 +80,11 @@ public class DestinationService {
      * @return O destino encontrado ou null se não encontrar nenhum.
      */
     public DestinationDTO getDestinationById(Long id) {
-        DestinationEntity destinationEntity = destinationDAO.getDestinationById(id);
+        DestinationEntity destinationEntity = destinationRepository.getReferenceById(id);
         if (destinationEntity == null) {
             return null;
         }
-        return toDTO(destinationEntity); // Converte a entidade para DTO
+        return convertToDTO(destinationEntity); // Converte a entidade para DTO
     }
 
     /**
@@ -93,11 +94,11 @@ public class DestinationService {
      * @return O destino encontrado.
      */
     public DestinationDTO getDestinationByName(String name) {
-        DestinationEntity destinationEntity = destinationDAO.getDestinationByName(name);
+        DestinationEntity destinationEntity = destinationRepository.findDestinationByName(name);
         if (destinationEntity == null) {
             return null;
         }
-        return toDTO(destinationEntity); // Converte a entidade para DTO
+        return convertToDTO(destinationEntity); // Converte a entidade para DTO
     }
 
     /**
@@ -109,10 +110,10 @@ public class DestinationService {
     public List<DestinationDTO> getDestinationByLocation(String location) {
         // O DAO não possui um método para buscar por localização.
         // Implementar uma consulta no DAO para buscar por localização.
-        List<DestinationEntity> destinationEntities = destinationDAO.getAllDestinations();
+        List<DestinationEntity> destinationEntities = destinationRepository.findAll();
         return destinationEntities.stream()
                 .filter(destinationEntity -> destinationEntity.getLocation().equals(location))
-                .map(this::toDTO) // Utiliza a função toDTO para converter a lista de entidades para DTOs
+                .map(this::convertToDTO) // Utiliza a função toDTO para converter a lista de entidades para DTOs
                 .collect(Collectors.toList());
     }
 
@@ -123,7 +124,7 @@ public class DestinationService {
      * @return A descrição do destino ou uma mensagem padrão caso não encontre nenhuma descrição.
      */
     public String getDescriptionById(Long id) {
-        String description = destinationDAO.getDescriptionById(id);
+        String description = destinationRepository.findDescriptionById(id);
         if (description == null) {
             return "Nenhuma descrição encontrada para o destino selecionado";
         }
@@ -138,14 +139,14 @@ public class DestinationService {
      * @return O destino com a avaliação atualizada.
      */
     public DestinationDTO updateRating(Long id, DestinationDTO destination) {
-        DestinationEntity destinationEntity = destinationDAO.getDestinationById(id);
+        DestinationEntity destinationEntity = destinationRepository.getReferenceById(id);
         if (destinationEntity == null) {
             return null;
         }
         double newRating = (destinationEntity.getRating() + destination.getRating()) / 2;
         destinationEntity.setRating(newRating);
-        destinationEntity = destinationDAO.updateRating(destinationEntity);
-        return toDTO(destinationEntity); // Converte a entidade para DTO
+        destinationEntity = destinationRepository.save(destinationEntity);
+        return convertToDTO(destinationEntity); // Converte a entidade para DTO
     }
 
     /**
@@ -154,6 +155,6 @@ public class DestinationService {
      * @param id O ID do destino a ser removido.
      */
     public void deleteDestinationById(Long id) {
-        destinationDAO.deleteDestination(id);
+        destinationRepository.deleteById(id);
     }
 }
