@@ -8,6 +8,8 @@ public class UsersDTO {
 
     private String password;
 
+    private String role;
+
     private String firstName;
 
     private String lastName;
@@ -60,5 +62,13 @@ public class UsersDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
