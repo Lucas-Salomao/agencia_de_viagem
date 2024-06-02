@@ -2,8 +2,7 @@ package com.example.agencia_de_viagem.dao;
 
 import com.example.agencia_de_viagem.domain.entity.DestinationEntity;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Component
