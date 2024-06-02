@@ -1,6 +1,6 @@
 package com.example.agencia_de_viagem.controller;
 
-import com.example.agencia_de_viagem.model.Destination;
+import com.example.agencia_de_viagem.domain.dto.DestinationDTO;
 import com.example.agencia_de_viagem.service.DestinationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class DestinationController {
      * @return ResponseEntity com o status HTTP 201 (Created) e o destino criado.
      */
     @PostMapping
-    public ResponseEntity<Destination> createDestination(@RequestBody Destination destination) {
+    public ResponseEntity<DestinationDTO> createDestination(@RequestBody DestinationDTO destination) {
         // Delega a criação do destino para o serviço.
         destinationService.createDestionation(destination);
         // Retorna o destino criado com o status HTTP 201 (Created).
@@ -39,9 +39,9 @@ public class DestinationController {
      * @return ResponseEntity com o status HTTP 200 (OK) e a lista de destinos.
      */
     @GetMapping
-    public ResponseEntity<List<Destination>> getAllDestinations() {
+    public ResponseEntity<List<DestinationDTO>> getAllDestinations() {
         // Busca todos os destinos usando o serviço.
-        List<Destination> destinations = destinationService.getAllDestinations();
+        List<DestinationDTO> destinations = destinationService.getAllDestinations();
         // Retorna a lista de destinos com o status HTTP 200 (OK).
         return new ResponseEntity<>(destinations, HttpStatus.OK);
     }
@@ -53,9 +53,9 @@ public class DestinationController {
      * @return ResponseEntity com o status HTTP 200 (OK) e o destino encontrado ou status 404 (Not Found) caso não seja encontrado.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Destination> getDestinationById(@PathVariable Long id) {
+    public ResponseEntity<DestinationDTO> getDestinationById(@PathVariable Long id) {
         // Busca o destino pelo ID usando o serviço.
-        Destination destination = destinationService.getDestinationById(id);
+        DestinationDTO destination = destinationService.getDestinationById(id);
         // Retorna o destino com o status HTTP 200 (OK) ou status 404 (Not Found) caso não seja encontrado.
         return new ResponseEntity<>(destination, HttpStatus.OK);
     }
@@ -67,25 +67,25 @@ public class DestinationController {
      * @return ResponseEntity com o status HTTP 200 (OK) e o destino encontrado.
      */
     @GetMapping("/name/{name}")
-    public ResponseEntity<Destination> getDestinationByName(@PathVariable String name) {
+    public ResponseEntity<DestinationDTO> getDestinationByName(@PathVariable String name) {
         // Busca o destino pelo nome usando o serviço.
-        Destination destination = destinationService.getDestinationByName(name);
+        DestinationDTO destination = destinationService.getDestinationByName(name);
         // Retorna o destino com o status HTTP 200 (OK).
         return new ResponseEntity<>(destination, HttpStatus.OK);
     }
 
     /**
-     * Retorna o destino com a localização especificada.
+     * Retorna todos os destinos com a localização especificada.
      *
      * @param location A localização do destino a ser buscado.
-     * @return ResponseEntity com o status HTTP 200 (OK) e o destino encontrado.
+     * @return ResponseEntity com o status HTTP 200 (OK) e os destinos encontrados.
      */
     @GetMapping("/location/{location}")
-    public ResponseEntity<Destination> getDestinationByLocation(@PathVariable String location) {
+    public ResponseEntity<List<DestinationDTO>> getDestinationByLocation(@PathVariable String location) {
         // Busca o destino pela localização usando o serviço.
-        Destination destination = destinationService.getDestinationByLocation(location);
+        List<DestinationDTO> destinations = destinationService.getDestinationByLocation(location);
         // Retorna o destino com o status HTTP 200 (OK).
-        return new ResponseEntity<>(destination, HttpStatus.OK);
+        return new ResponseEntity<>(destinations, HttpStatus.OK);
     }
 
     /**
@@ -110,9 +110,9 @@ public class DestinationController {
      * @return ResponseEntity com o status HTTP 200 (OK) e o destino atualizado.
      */
     @PutMapping("/rating/{id}")
-    public ResponseEntity<Destination> updateRating(@PathVariable Long id, @RequestBody Destination destination) {
+    public ResponseEntity<DestinationDTO> updateRating(@PathVariable Long id, @RequestBody DestinationDTO destination) {
         // Atualiza a avaliação do destino usando o serviço.
-        Destination tempDestination = destinationService.updateRating(id, destination);
+        DestinationDTO tempDestination = destinationService.updateRating(id, destination);
         // Retorna o destino atualizado com o status HTTP 200 (OK).
         return new ResponseEntity<>(tempDestination, HttpStatus.OK);
     }
@@ -124,7 +124,7 @@ public class DestinationController {
      * @return ResponseEntity com o status HTTP 204 (No Content).
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Destination> deleteDestinationById(@PathVariable Long id) {
+    public ResponseEntity<DestinationDTO> deleteDestinationById(@PathVariable Long id) {
         // Exclui o destino usando o serviço.
         destinationService.deleteDestinationById(id);
         // Retorna o status HTTP 204 (No Content) indicando que a exclusão foi realizada com sucesso.

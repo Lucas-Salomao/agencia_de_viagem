@@ -1,4 +1,4 @@
-package com.example.agencia_de_viagem.model;
+package com.example.agencia_de_viagem.entity;
 
 public class Destination {
 

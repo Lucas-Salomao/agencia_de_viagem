@@ -1,9 +1,11 @@
 package com.example.agencia_de_viagem.service;
 
-import com.example.agencia_de_viagem.model.Destination;
+import com.example.agencia_de_viagem.dao.DestinationDAO;
+import com.example.agencia_de_viagem.domain.dto.DestinationDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Serviço responsável pela lógica de negócios relacionada a destinos.
@@ -11,10 +13,12 @@ import java.util.ArrayList;
 @Service
 public class DestinationService {
 
+    DestinationDAO destinationDAO;
+
     /**
      * Lista que simula um banco de dados para armazenar os destinos.
      */
-    private List<Destination> destionations = new ArrayList<>();
+    private List<DestinationDTO> destionations = new ArrayList<>();
 
     /**
      * Cria um novo destino e o adiciona à lista de destinos.
@@ -22,7 +26,7 @@ public class DestinationService {
      * @param destination O destino a ser criado.
      * @return O destino criado.
      */
-    public Destination createDestionation(Destination destination) {
+    public DestinationDTO createDestionation(DestinationDTO destination) {
         destionations.add(destination);
         return destination;
     }
@@ -32,7 +36,7 @@ public class DestinationService {
      *
      * @return Uma lista com todos os destinos.
      */
-    public List<Destination> getAllDestinations() {
+    public List<DestinationDTO> getAllDestinations() {
         return this.destionations;
     }
 
@@ -42,8 +46,8 @@ public class DestinationService {
      * @param id O ID do destino a ser buscado.
      * @return O destino encontrado ou null se não encontrar nenhum.
      */
-    public Destination getDestinationById(Long id) {
-        Destination destination = destionations.stream().filter(destination1 -> destination1.getId() == id).findFirst().orElse(null);
+    public DestinationDTO getDestinationById(Long id) {
+        DestinationDTO destination = destionations.stream().filter(destination1 -> destination1.getId() == id).findFirst().orElse(null);
         return destination;
     }
 
@@ -54,8 +58,8 @@ public class DestinationService {
      * @return O destino encontrado.
      * @throws java.util.NoSuchElementException Se não encontrar nenhum destino com o nome especificado.
      */
-    public Destination getDestinationByName(String name) {
-        Destination destination = destionations.stream().filter(d -> d.getName().equals(name)).findFirst().get();
+    public DestinationDTO getDestinationByName(String name) {
+        DestinationDTO destination = destionations.stream().filter(d -> d.getName().equals(name)).findFirst().get();
         return destination;
     }
 
@@ -66,9 +70,9 @@ public class DestinationService {
      * @return O destino encontrado.
      * @throws java.util.NoSuchElementException Se não encontrar nenhum destino com a localização especificada.
      */
-    public Destination getDestinationByLocation(String location) {
-        Destination destination = destionations.stream().filter(d -> d.getLocation().equals(location)).findFirst().get();
-        return destination;
+    public List<DestinationDTO> getDestinationByLocation(String location) {
+        List<DestinationDTO> destinations = destionations.stream().filter(d -> d.getLocation().equals(location)).collect(Collectors.toList());
+        return destinations;
     }
 
     /**
@@ -92,8 +96,8 @@ public class DestinationService {
      * @param destination O objeto destino contendo a nova avaliação.
      * @return O destino com a avaliação atualizada.
      */
-    public Destination updateRating(Long id, Destination destination) {
-        Destination tempDestination = getDestinationById(id);
+    public DestinationDTO updateRating(Long id, DestinationDTO destination) {
+        DestinationDTO tempDestination = getDestinationById(id);
         double newRating = 0.0;
         if(tempDestination.getRating() == 0) {
             newRating = destination.getRating();
