@@ -3,6 +3,7 @@ package com.example.agencia_de_viagem.domain.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "destinations")
 public class DestinationEntity {
 
     @Id
@@ -20,6 +21,17 @@ public class DestinationEntity {
 
     @Column(nullable = false)
     private Double rating;
+
+    public DestinationEntity() {
+
+    }
+
+    public DestinationEntity(String name, String location, String description, double rating) {
+        this.name = name;
+        this.location = location;
+        this.description = description;
+        this.rating = rating;
+    }
 
     public Long getId() {
         return id;
