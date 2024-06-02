@@ -1,8 +1,11 @@
 package com.example.agencia_de_viagem.repository;
 
-import com.example.agencia_de_viagem.domain.entity.UsersEntity;
+import com.example.agencia_de_viagem.domain.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UsersEntity, Long> {
+import java.util.Optional;
 
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+    Optional<UserEntity> findByUserName(String userName);
 }
