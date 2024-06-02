@@ -1,4 +1,3 @@
-CREATE SCHEMA users_details;
 CREATE TABLE users_details.users (
                                     id BIGSERIAL PRIMARY KEY,
                                     firstname VARCHAR(255) NOT NULL,

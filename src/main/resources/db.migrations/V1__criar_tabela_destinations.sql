@@ -1,4 +1,3 @@
-CREATE SCHEMA destination_details;
 CREATE TABLE destination_details.destinations (
                               id BIGSERIAL PRIMARY KEY,
                               name VARCHAR(255) NOT NULL,
