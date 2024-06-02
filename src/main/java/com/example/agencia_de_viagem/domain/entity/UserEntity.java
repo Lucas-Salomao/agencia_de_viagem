@@ -3,26 +3,27 @@ package com.example.agencia_de_viagem.domain.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class UsersEntity {
+@Table(name = "users", schema = "users_details")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "username", nullable = false)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "firstname", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "lastname",nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(name = "email",nullable = false)
     private String email;
 
     public void setId(Long id) {
