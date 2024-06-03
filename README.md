@@ -64,7 +64,7 @@ A API expõe os seguintes endpoints:
 | `/api/v1/destination` | GET | Lista todos os destinos. |
 | `/api/v1/destination/{id}` | GET | Busca um destino pelo seu ID. |
 | `/api/v1/destination/name/{name}` | GET | Busca um destino pelo seu nome. |
-| `/api/v1/destination/location/{location}` | GET | Busca um destino pela sua localização. |
+| `/api/v1/destination/location/{location}` | GET | Lista todos os destinos pela sua localização. |
 | `/api/v1/destination/description/{id}` | GET | Busca a descrição de um destino pelo seu ID. |
 | `/api/v1/destination/rating/{id}` | PUT | Atualiza a classificação de um destino. |
 | `/api/v1/destination/{id}` | DELETE | Deleta um destino. |
